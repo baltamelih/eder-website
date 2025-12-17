@@ -20,6 +20,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Google AdSense (Publisher ID'yi değiştir) -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+    crossorigin="anonymous"></script>
+
   <style>
     :root{
       --bg:#0B1220;
@@ -28,13 +33,19 @@
       --text:#E8EEFF;
       --muted:#B8C4E6;
       --line:rgba(255,255,255,.10);
-      --brand:#6AE4FF;
-      --brand2:#7C5CFF;
+
+      /* EDER Turuncu Brand */
+      --orange:#FF7A18;     /* ana turuncu */
+      --orange2:#FFB14A;    /* ikinci turuncu (ışık) */
+
+      /* yardımcı renkler */
       --good:#5CFFA8;
       --warn:#FFD36A;
+
       --shadow: 0 20px 70px rgba(0,0,0,.45);
       --radius: 18px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -42,17 +53,57 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
       background:
-        radial-gradient(1200px 800px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
-        radial-gradient(900px 700px at 100% 10%, rgba(106,228,255,.30), transparent 55%),
+        radial-gradient(900px 700px at 15% -10%, rgba(255,122,24,.22), transparent 60%),
+        radial-gradient(900px 700px at 100% 10%, rgba(255,177,74,.16), transparent 55%),
         radial-gradient(900px 700px at 40% 110%, rgba(92,255,168,.10), transparent 60%),
         var(--bg);
     }
     a{color:inherit;text-decoration:none}
+
+    /* Layout: Sol Reklam | İçerik | Sağ Reklam */
+    .page{
+      display:grid;
+      grid-template-columns: 160px minmax(0, 1120px) 160px;
+      gap: 18px;
+      align-items:start;
+      justify-content:center;
+      padding: 0 14px;
+    }
+
+    /* içerik container artık page içindeki orta kolonu kullanacak */
     .container{max-width:1120px;margin:0 auto;padding:0 20px}
+
+    .ad-col{
+      position:sticky;
+      top: 86px; /* nav yüksekliği sonrası */
+      padding-top: 10px;
+    }
+
+    .ad-box{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 14px;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+    }
+
+    /* CLS azaltmak için reklam alanına min-height */
+    .ad-slot{
+      display:block;
+      width: 100%;
+      min-height: 600px; /* vertical ad */
+    }
+
+    /* Mobil/tablet: reklam kolonlarını kapat */
+    @media (max-width: 1100px){
+      .page{grid-template-columns: 1fr; padding:0}
+      .ad-col{display:none}
+    }
+
     .nav{
       position:sticky;top:0;z-index:50;
       backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(11,18,32,.85), rgba(11,18,32,.55));
+      background: linear-gradient(to bottom, rgba(11,18,32,.88), rgba(11,18,32,.55));
       border-bottom:1px solid var(--line);
     }
     .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
@@ -61,6 +112,7 @@
     .nav-links{display:flex;gap:16px;align-items:center}
     .nav-links a{opacity:.9;font-weight:600;font-size:14px}
     .nav-links a:hover{opacity:1}
+
     .btn{
       display:inline-flex;align-items:center;justify-content:center;
       padding:10px 14px;border-radius:12px;
@@ -68,17 +120,20 @@
       background:rgba(255,255,255,.06);
       box-shadow: 0 10px 30px rgba(0,0,0,.25);
       font-weight:700;font-size:14px;
-      transition: transform .12s ease, background .12s ease, border .12s ease;
+      transition: transform .12s ease, background .12s ease, border .12s ease, filter .12s ease;
       gap:10px;
       white-space:nowrap;
     }
     .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.18)}
+
+    /* Primary: turuncu */
     .btn.primary{
       border:none;
-      background: linear-gradient(135deg, var(--brand2), var(--brand));
-      color:#071022;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      color:#1A0E05;
     }
     .btn.primary:hover{filter:brightness(1.03)}
+
     .hero{padding:56px 0 28px}
     .hero-grid{display:grid;grid-template-columns: 1.1fr .9fr;gap:26px;align-items:center}
     .badge{
@@ -95,26 +150,26 @@
     .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 12px}
     .subrow{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:13px}
     .subrow span{display:inline-flex;align-items:center;gap:8px;opacity:.95}
-    .dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg,var(--brand2),var(--brand))}
+
+    /* turuncu nokta */
+    .dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg,var(--orange),var(--orange2))}
+
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       border:1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
-    .mock{
-      padding:16px;
-      position:relative;
-      overflow:hidden;
-    }
+    .mock{padding:16px;position:relative;overflow:hidden;}
     .mock:before{
       content:"";
       position:absolute;inset:-40px -40px auto auto;
       width:220px;height:220px;
-      background: radial-gradient(circle at 30% 30%, rgba(106,228,255,.32), transparent 70%);
+      background: radial-gradient(circle at 30% 30%, rgba(255,122,24,.25), transparent 70%);
       transform: rotate(10deg);
     }
     .mock img{width:100%;height:auto;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25)}
+
     .section{padding:28px 0}
     .section h2{font-size:24px;margin:0 0 8px;letter-spacing:-.3px}
     .section p{margin:0;color:var(--muted);line-height:1.7}
@@ -131,14 +186,24 @@
     }
     .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
     .step{padding:16px}
-    .step .k{font-weight:800;color:#071022;background:linear-gradient(135deg,var(--brand2),var(--brand));display:inline-flex;padding:6px 10px;border-radius:999px}
+    .step .k{
+      font-weight:800;color:#1A0E05;
+      background:linear-gradient(135deg,var(--orange),var(--orange2));
+      display:inline-flex;padding:6px 10px;border-radius:999px
+    }
     .step h3{margin:10px 0 8px}
     .step p{font-size:14px}
     .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
     .panel{padding:18px}
     .panel ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
     .panel li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px;line-height:1.6}
-    .tick{width:18px;height:18px;border-radius:6px;background:rgba(92,255,168,.16);border:1px solid rgba(92,255,168,.35);display:inline-flex;align-items:center;justify-content:center;flex:0 0 18px;margin-top:2px}
+    .tick{
+      width:18px;height:18px;border-radius:6px;
+      background:rgba(92,255,168,.16);
+      border:1px solid rgba(92,255,168,.35);
+      display:inline-flex;align-items:center;justify-content:center;
+      flex:0 0 18px;margin-top:2px
+    }
     .faq{margin-top:14px;display:grid;gap:10px}
     details{
       border:1px solid var(--line);
@@ -188,7 +253,6 @@
         <div style="display:flex;gap:10px;align-items:center">
           <a class="btn mobile-only" href="/support.html">Destek</a>
 
-          <!-- Değiştir: Store linklerin -->
           <a class="btn" href="https://play.google.com/store/apps/details?id=com.eder.app" target="_blank" rel="noopener">Google Play</a>
           <a class="btn primary" href="https://apps.apple.com/" target="_blank" rel="noopener">App Store</a>
         </div>
@@ -196,225 +260,270 @@
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <div>
-            <div class="badge">
-              <span class="dot"></span>
-              Mobil uygulama • Araç değerleme ve piyasa analizi
+  <!-- 3 kolonlu layout başlangıcı -->
+  <div class="page">
+
+    <!-- SOL REKLAM -->
+    <aside class="ad-col" aria-label="Sol reklam alanı">
+      <div class="ad-box">
+        <!-- AdSense: Sol dikey reklam (slot'u değiştir) -->
+        <ins class="adsbygoogle ad-slot"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1111111111"
+             data-ad-format="auto"
+             data-full-width-responsive="false"></ins>
+      </div>
+    </aside>
+
+    <!-- ORTA İÇERİK -->
+    <div>
+      <main>
+        <section class="hero">
+          <div class="container">
+            <div class="hero-grid">
+              <div>
+                <div class="badge">
+                  <span class="dot"></span>
+                  Mobil uygulama • Araç değerleme ve piyasa analizi
+                </div>
+
+                <h1 class="h1">
+                  Aracının
+                  <span style="background:linear-gradient(135deg,var(--orange),var(--orange2));-webkit-background-clip:text;background-clip:text;color:transparent">
+                    tahmini piyasa değerini
+                  </span>
+                  saniyeler içinde öğren.
+                </h1>
+
+                <p class="lead">
+                  EDER, marka-model-trim bazlı verilerle aracının değer aralığını hızlıca hesaplar. Şeffaf sonuç, pratik kullanım, güçlü destek.
+                </p>
+
+                <div class="cta-row">
+                  <a class="btn primary" href="#download">Uygulamayı İndir</a>
+                  <a class="btn" href="/support.html">Destek & İletişim</a>
+                  <a class="btn" href="#how">Nasıl Çalışır?</a>
+                </div>
+
+                <div class="subrow">
+                  <span><span class="tick">✓</span> Hızlı değer tespiti</span>
+                  <span><span class="tick">✓</span> Piyasa ortalaması</span>
+                  <span><span class="tick">✓</span> Trim / donanım bazlı</span>
+                  <span><span class="tick">✓</span> Şeffaf geri bildirim</span>
+                </div>
+              </div>
+
+              <div class="card mock" aria-label="Uygulama Önizleme">
+                <img src="/assets/app-mock.png" alt="EDER Uygulama Ekran Görüntüsü">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" class="section">
+          <div class="container">
+            <h2>Özellikler</h2>
+            <p>EDER, sade bir arayüzle güçlü analiz sunar. Doğru soruları sorar, hızlı sonuç verir.</p>
+
+            <div class="grid-3">
+              <div class="card feature">
+                <div class="icon">₺</div>
+                <h3>Değer Aralığı</h3>
+                <p>Aracın için tek bir rakam yerine mantıklı bir <b>fiyat aralığı</b> gösterir.</p>
+              </div>
+
+              <div class="card feature">
+                <div class="icon">⚡</div>
+                <h3>Hızlı Hesap</h3>
+                <p>Marka, model, yıl, km gibi bilgilerle saniyeler içinde tahmin üretir.</p>
+              </div>
+
+              <div class="card feature">
+                <div class="icon">🔎</div>
+                <h3>Donanım / Trim</h3>
+                <p>Trim/donanım farklarının değer üzerindeki etkisini daha net yansıtır.</p>
+              </div>
+
+              <div class="card feature">
+                <div class="icon">📈</div>
+                <h3>Piyasa Görünümü</h3>
+                <p>Ortalama/medyan gibi özet metriklerle piyasayı daha okunur hale getirir.</p>
+              </div>
+
+              <div class="card feature">
+                <div class="icon">🛡️</div>
+                <h3>Gizlilik Odaklı</h3>
+                <p>Minimum veri yaklaşımı. Açık politikalar, kullanıcı kontrolü.</p>
+              </div>
+
+              <div class="card feature">
+                <div class="icon">💬</div>
+                <h3>Destek</h3>
+                <p>Soruların için hızlı iletişim kanalları ve yönlendirici yardım merkezi.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="how" class="section">
+          <div class="container">
+            <h2>Nasıl çalışır?</h2>
+            <p>3 adımda değer tahmini: gir, kontrol et, sonucu gör.</p>
+
+            <div class="how">
+              <div class="card step">
+                <span class="k">1</span>
+                <h3>Bilgileri gir</h3>
+                <p>Marka/model/yıl/km ve varsa trim gibi detayları seç.</p>
+              </div>
+              <div class="card step">
+                <span class="k">2</span>
+                <h3>Veriyi analiz et</h3>
+                <p>EDER, benzer araç verilerinden anlamlı bir değer aralığı üretir.</p>
+              </div>
+              <div class="card step">
+                <span class="k">3</span>
+                <h3>Sonucu görüntüle</h3>
+                <p>Özet değer + piyasa görünümü ile daha net bir karar ver.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="trust" class="section">
+          <div class="container">
+            <h2>Güven & Şeffaflık</h2>
+            <p>EDER; “güzel görünen” değil, “anlaşılır ve tutarlı” sonuç üretmeyi hedefler.</p>
+
+            <div class="split">
+              <div class="card panel">
+                <h3 style="margin:0 0 8px">Ne sunuyoruz?</h3>
+                <ul>
+                  <li><span class="tick">✓</span> Değer aralığı ve özet piyasa metrikleri</li>
+                  <li><span class="tick">✓</span> Trim/donanım odaklı seçimler</li>
+                  <li><span class="tick">✓</span> Uygulama içi yönlendirme & destek kanalları</li>
+                </ul>
+              </div>
+
+              <div class="card panel">
+                <h3 style="margin:0 0 8px">Ne değildir?</h3>
+                <ul>
+                  <li><span class="tick" style="background:rgba(255,211,106,.16);border-color:rgba(255,211,106,.35)">!</span> Resmî ekspertiz raporu yerine geçmez</li>
+                  <li><span class="tick" style="background:rgba(255,211,106,.16);border-color:rgba(255,211,106,.35)">!</span> Aracın kondisyonu görülmeden kesin fiyat vermez</li>
+                  <li><span class="tick" style="background:rgba(255,211,106,.16);border-color:rgba(255,211,106,.35)">!</span> Yanıltıcı “tek sayı” yaklaşımını hedeflemez</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="download" class="section">
+          <div class="container">
+            <div class="card panel" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
+              <div>
+                <h2 style="margin:0 0 6px">Uygulamayı indir</h2>
+                <p style="margin:0;color:var(--muted)">EDER iOS & Android ile yanında. Güncel linklerden indir.</p>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <a class="btn" href="https://play.google.com/store/apps/details?id=com.eder.app" target="_blank" rel="noopener">Google Play</a>
+                <a class="btn primary" href="https://apps.apple.com/" target="_blank" rel="noopener">App Store</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" class="section">
+          <div class="container">
+            <h2>SSS</h2>
+            <p>En sık sorulan sorular.</p>
+
+            <div class="faq">
+              <details>
+                <summary>EDER değerleri ne kadar doğru?</summary>
+                <p>EDER tahmini piyasa değeri üretir. Sonuçlar; girilen bilgiler ve mevcut veri koşullarına göre değişir. Kesin satış fiyatı; aracın kondisyonu ve yerel piyasa gibi etkenlere bağlıdır.</p>
+              </details>
+
+              <details>
+                <summary>Verilerim güvende mi?</summary>
+                <p>Gizlilik yaklaşımımız “minimum veri” prensibine dayanır. Detaylar için <a href="/privacy.html" style="text-decoration:underline">Gizlilik Politikası</a> sayfasına bakabilirsin.</p>
+              </details>
+
+              <details>
+                <summary>Desteğe nasıl ulaşırım?</summary>
+                <p><a href="/support.html" style="text-decoration:underline">Destek</a> sayfasından iletişim formu veya e-posta ile ulaşabilirsin.</p>
+              </details>
+
+              <details>
+                <summary>Hesabımı ve verilerimi nasıl sildirebilirim?</summary>
+                <p><a href="/delete-account.html" style="text-decoration:underline">Hesap Silme Talebi</a> sayfasından talep oluşturabilirsin.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <div class="card panel">
+              <h2 style="margin:0 0 6px">Kurumsal / İşbirliği</h2>
+              <p style="margin:0;color:var(--muted)">
+                Filo, bayi veya entegrasyon talepleriniz için bizimle iletişime geçin:
+                <a href="mailto:destek@ederapp.com" style="text-decoration:underline">destek@ederapp.com</a>
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div>
+              <div class="brand" style="margin-bottom:10px">
+                <img src="/assets/logo.png" alt="EDER Logo">
+                <span>EDER</span>
+              </div>
+              <small>
+                © <span id="y"></span> EDER. Tüm hakları saklıdır.<br>
+                Araç değer tahminleri bilgilendirme amaçlıdır, resmî ekspertiz yerine geçmez.
+              </small>
             </div>
 
-            <h1 class="h1">Aracının <span style="background:linear-gradient(135deg,var(--brand2),var(--brand));-webkit-background-clip:text;background-clip:text;color:transparent">tahmini piyasa değerini</span> saniyeler içinde öğren.</h1>
-
-            <p class="lead">
-              EDER, marka-model-trim bazlı verilerle aracının değer aralığını hızlıca hesaplar. Şeffaf sonuç, pratik kullanım, güçlü destek.
-            </p>
-
-            <div class="cta-row">
-              <a class="btn primary" href="#download">Uygulamayı İndir</a>
-              <a class="btn" href="/support.html">Destek & İletişim</a>
-              <a class="btn" href="#how">Nasıl Çalışır?</a>
-            </div>
-
-            <div class="subrow">
-              <span><span class="tick">✓</span> Hızlı değer tespiti</span>
-              <span><span class="tick">✓</span> Piyasa ortalaması</span>
-              <span><span class="tick">✓</span> Trim / donanım bazlı</span>
-              <span><span class="tick">✓</span> Şeffaf geri bildirim</span>
+            <div class="links" aria-label="Alt Bağlantılar">
+              <a href="/support.html">Destek</a>
+              <a href="/privacy.html">Gizlilik Politikası</a>
+              <a href="/terms.html">Kullanım Şartları</a>
+              <a href="/delete-account.html">Hesap Silme Talebi</a>
             </div>
           </div>
-
-          <div class="card mock" aria-label="Uygulama Önizleme">
-            <!-- Değiştir: uygulama mock görseli -->
-            <img src="/assets/app-mock.png" alt="EDER Uygulama Ekran Görüntüsü">
-          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="features" class="section">
-      <div class="container">
-        <h2>Özellikler</h2>
-        <p>EDER, sade bir arayüzle güçlü analiz sunar. Doğru soruları sorar, hızlı sonuç verir.</p>
-
-        <div class="grid-3">
-          <div class="card feature">
-            <div class="icon">₺</div>
-            <h3>Değer Aralığı</h3>
-            <p>Aracın için tek bir rakam yerine mantıklı bir <b>fiyat aralığı</b> gösterir.</p>
-          </div>
-
-          <div class="card feature">
-            <div class="icon">⚡</div>
-            <h3>Hızlı Hesap</h3>
-            <p>Marka, model, yıl, km gibi bilgilerle saniyeler içinde tahmin üretir.</p>
-          </div>
-
-          <div class="card feature">
-            <div class="icon">🔎</div>
-            <h3>Donanım / Trim</h3>
-            <p>Trim/donanım farklarının değer üzerindeki etkisini daha net yansıtır.</p>
-          </div>
-
-          <div class="card feature">
-            <div class="icon">📈</div>
-            <h3>Piyasa Görünümü</h3>
-            <p>Ortalama/medyan gibi özet metriklerle piyasayı daha okunur hale getirir.</p>
-          </div>
-
-          <div class="card feature">
-            <div class="icon">🛡️</div>
-            <h3>Gizlilik Odaklı</h3>
-            <p>Minimum veri yaklaşımı. Açık politikalar, kullanıcı kontrolü.</p>
-          </div>
-
-          <div class="card feature">
-            <div class="icon">💬</div>
-            <h3>Destek</h3>
-            <p>Soruların için hızlı iletişim kanalları ve yönlendirici yardım merkezi.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="how" class="section">
-      <div class="container">
-        <h2>Nasıl çalışır?</h2>
-        <p>3 adımda değer tahmini: gir, kontrol et, sonucu gör.</p>
-
-        <div class="how">
-          <div class="card step">
-            <span class="k">1</span>
-            <h3>Bilgileri gir</h3>
-            <p>Marka/model/yıl/km ve varsa trim gibi detayları seç.</p>
-          </div>
-          <div class="card step">
-            <span class="k">2</span>
-            <h3>Veriyi analiz et</h3>
-            <p>EDER, benzer araç verilerinden anlamlı bir değer aralığı üretir.</p>
-          </div>
-          <div class="card step">
-            <span class="k">3</span>
-            <h3>Sonucu görüntüle</h3>
-            <p>Özet değer + piyasa görünümü ile daha net bir karar ver.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="trust" class="section">
-      <div class="container">
-        <h2>Güven & Şeffaflık</h2>
-        <p>EDER; “güzel görünen” değil, “anlaşılır ve tutarlı” sonuç üretmeyi hedefler.</p>
-
-        <div class="split">
-          <div class="card panel">
-            <h3 style="margin:0 0 8px">Ne sunuyoruz?</h3>
-            <ul>
-              <li><span class="tick">✓</span> Değer aralığı ve özet piyasa metrikleri</li>
-              <li><span class="tick">✓</span> Trim/donanım odaklı seçimler</li>
-              <li><span class="tick">✓</span> Uygulama içi yönlendirme & destek kanalları</li>
-            </ul>
-          </div>
-
-          <div class="card panel">
-            <h3 style="margin:0 0 8px">Ne değildir?</h3>
-            <ul>
-              <li><span class="tick" style="background:rgba(255,211,106,.16);border-color:rgba(255,211,106,.35)">!</span> Resmî ekspertiz raporu yerine geçmez</li>
-              <li><span class="tick" style="background:rgba(255,211,106,.16);border-color:rgba(255,211,106,.35)">!</span> Aracın kondisyonu görülmeden kesin fiyat vermez</li>
-              <li><span class="tick" style="background:rgba(255,211,106,.16);border-color:rgba(255,211,106,.35)">!</span> Yanıltıcı “tek sayı” yaklaşımını hedeflemez</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="download" class="section">
-      <div class="container">
-        <div class="card panel" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
-          <div>
-            <h2 style="margin:0 0 6px">Uygulamayı indir</h2>
-            <p style="margin:0;color:var(--muted)">EDER iOS & Android ile yanında. Güncel linklerden indir.</p>
-          </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <!-- Değiştir -->
-            <a class="btn" href="https://play.google.com/store/apps/details?id=com.eder.app" target="_blank" rel="noopener">Google Play</a>
-            <a class="btn primary" href="https://apps.apple.com/" target="_blank" rel="noopener">App Store</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="section">
-      <div class="container">
-        <h2>SSS</h2>
-        <p>En sık sorulan sorular.</p>
-
-        <div class="faq">
-          <details>
-            <summary>EDER değerleri ne kadar doğru?</summary>
-            <p>EDER tahmini piyasa değeri üretir. Sonuçlar; girilen bilgiler ve mevcut veri koşullarına göre değişir. Kesin satış fiyatı; aracın kondisyonu ve yerel piyasa gibi etkenlere bağlıdır.</p>
-          </details>
-
-          <details>
-            <summary>Verilerim güvende mi?</summary>
-            <p>Gizlilik yaklaşımımız “minimum veri” prensibine dayanır. Detaylar için <a href="/privacy.html" style="text-decoration:underline">Gizlilik Politikası</a> sayfasına bakabilirsin.</p>
-          </details>
-
-          <details>
-            <summary>Desteğe nasıl ulaşırım?</summary>
-            <p><a href="/support.html" style="text-decoration:underline">Destek</a> sayfasından iletişim formu veya e-posta ile ulaşabilirsin.</p>
-          </details>
-
-          <details>
-            <summary>Hesabımı ve verilerimi nasıl sildirebilirim?</summary>
-            <p><a href="/delete-account.html" style="text-decoration:underline">Hesap Silme Talebi</a> sayfasından talep oluşturabilirsin.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="card panel">
-          <h2 style="margin:0 0 6px">Kurumsal / İşbirliği</h2>
-          <p style="margin:0;color:var(--muted)">
-            Filo, bayi veya entegrasyon talepleriniz için bizimle iletişime geçin:
-            <a href="mailto:destek@ederapp.com" style="text-decoration:underline">destek@ederapp.com</a>
-          </p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="brand" style="margin-bottom:10px">
-            <img src="/assets/logo.png" alt="EDER Logo">
-            <span>EDER</span>
-          </div>
-          <small>
-            © <span id="y"></span> EDER. Tüm hakları saklıdır.<br>
-            Araç değer tahminleri bilgilendirme amaçlıdır, resmî ekspertiz yerine geçmez.
-          </small>
-        </div>
-
-        <div class="links" aria-label="Alt Bağlantılar">
-          <a href="/support.html">Destek</a>
-          <a href="/privacy.html">Gizlilik Politikası</a>
-          <a href="/terms.html">Kullanım Şartları</a>
-          <a href="/delete-account.html">Hesap Silme Talebi</a>
-        </div>
-      </div>
+      </footer>
     </div>
-  </footer>
+
+    <!-- SAĞ REKLAM -->
+    <aside class="ad-col" aria-label="Sağ reklam alanı">
+      <div class="ad-box">
+        <!-- AdSense: Sağ dikey reklam (slot'u değiştir) -->
+        <ins class="adsbygoogle ad-slot"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="2222222222"
+             data-ad-format="auto"
+             data-full-width-responsive="false"></ins>
+      </div>
+    </aside>
+
+  </div>
+  <!-- 3 kolonlu layout bitiş -->
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- AdSense init: sayfadaki ins'leri çalıştır -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </body>
 </html>

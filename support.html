@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EDER Destek</title>
+  <meta name="description" content="EDER destek merkezi: iletişim, yardım, sık sorulan sorular, hesap işlemleri." />
+  <link rel="icon" href="/assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0B1220;--text:#E8EEFF;--muted:#B8C4E6;--line:rgba(255,255,255,.10);--panel:rgba(255,255,255,.06);--radius:18px}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none} .container{max-width:980px;margin:0 auto;padding:0 20px}
+    header{border-bottom:1px solid var(--line);background:linear-gradient(to bottom, rgba(11,18,32,.92), rgba(11,18,32,.75));position:sticky;top:0;backdrop-filter:blur(10px)}
+    .top{display:flex;justify-content:space-between;align-items:center;padding:14px 0;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand img{width:34px;height:34px;border-radius:10px}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:14px}
+    main{padding:28px 0}
+    .card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));padding:18px}
+    h1{margin:0 0 8px;font-size:28px;letter-spacing:-.4px}
+    p{margin:0;color:var(--muted);line-height:1.7}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+    label{display:block;font-weight:700;font-size:13px;margin:12px 0 6px}
+    input,textarea,select{
+      width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--line);
+      background:rgba(255,255,255,.05);color:var(--text);outline:none
+    }
+    textarea{min-height:120px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .hint{font-size:12px;color:var(--muted);margin-top:10px}
+    .submit{margin-top:12px}
+    .submit button{cursor:pointer}
+    @media (max-width:880px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="top">
+      <a class="brand" href="/"><img src="/assets/logo.png" alt="EDER"> <span>EDER</span></a>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="/privacy.html">Gizlilik</a>
+        <a class="btn" href="/terms.html">Şartlar</a>
+        <a class="btn" href="/delete-account.html">Hesap Silme</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="card">
+      <h1>Destek Merkezi</h1>
+      <p>Sorun bildirimi, öneri veya işbirliği talepleriniz için aşağıdaki formu doldurun ya da e-posta ile ulaşın.</p>
+      <p style="margin-top:10px">
+        E-posta: <a href="mailto:destek@ederapp.com" style="text-decoration:underline">destek@ederapp.com</a>
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2 style="margin:0 0 8px;font-size:18px">İletişim Formu</h2>
+        <p style="margin:0 0 10px">En hızlı dönüş için uygulama e-postanız ve cihaz bilginizi yazın.</p>
+
+        <!-- Formspree/EmailJS gibi bir servisle action değiştirebilirsin -->
+        <form method="POST" action="#" onsubmit="return fakeSubmit(event)">
+          <div class="row">
+            <div>
+              <label>Ad Soyad</label>
+              <input name="name" autocomplete="name" required />
+            </div>
+            <div>
+              <label>E-posta</label>
+              <input name="email" type="email" autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Konu</label>
+              <select name="topic" required>
+                <option value="" disabled selected>Seçin</option>
+                <option>Teknik Sorun</option>
+                <option>Öneri / Geri Bildirim</option>
+                <option>Hesap / Üyelik</option>
+                <option>İşbirliği</option>
+                <option>Diğer</option>
+              </select>
+            </div>
+            <div>
+              <label>Cihaz / Platform</label>
+              <select name="platform" required>
+                <option value="" disabled selected>Seçin</option>
+                <option>iOS</option>
+                <option>Android</option>
+                <option>Web</option>
+              </select>
+            </div>
+          </div>
+
+          <label>Mesaj</label>
+          <textarea name="message" required placeholder="Detayları yazın (hata mesajı, adımlar, ekran görüntüsü vb.)"></textarea>
+
+          <div class="submit">
+            <button class="btn" type="submit">Gönder</button>
+          </div>
+
+          <div class="hint" id="status"></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 8px;font-size:18px">Hızlı Yardım</h2>
+        <p>• Değer sonuçları tahmindir; kondisyon/hasar/şehir etkisi olabilir.</p>
+        <p>• Trim/donanım seçimi sonucu ciddi etkileyebilir.</p>
+        <p>• Hesap silme talebi için <a href="/delete-account.html" style="text-decoration:underline">bu sayfayı</a> kullanın.</p>
+
+        <div style="margin-top:14px;border-top:1px solid var(--line);padding-top:14px">
+          <h3 style="margin:0 0 8px;font-size:16px">İşbirliği</h3>
+          <p>Filo/bayi/entegrasyon: <a href="mailto:destek@ederapp.com" style="text-decoration:underline">destek@ederapp.com</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  function fakeSubmit(e){
+    e.preventDefault();
+    const s = document.getElementById("status");
+    s.textContent = "Form demo modunda. Canlıya almak için action alanını Formspree/EmailJS endpoint’inle değiştir.";
+    return false;
+  }
+</script>
+</body>
+</html>
